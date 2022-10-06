@@ -14,14 +14,13 @@ export const App = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />}></Route>
-          <Route path="contacts" element={<Contacts />}></Route>
-          <Route path="register" element={<Register />}></Route>
-          <Route path="login" element={<Login />}></Route>
-          <Route path="*" element={<Navigate to="/" replace />}></Route>
+          <Route index element={<Home />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
-      <GlobalStyle />
     </>
   );
 };
