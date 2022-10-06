@@ -1,44 +1,27 @@
-import styled from "styled-components";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
-import ContactForm from "./ContactForm";
-import ContactList from "./ContactList";
-import Filter from "./Filter";
-import Section from "./Section";
+import { lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyle } from "./GlobalStyle";
-import { Box } from "./Box";
+import Layout from './Layout';
 
-const PageTitle = styled.h1`
-  text-align: center;
-  font-size: ${p => p.theme.fontSizes.xl};
-  color: ${p => p.theme.colors.text};
-`;
+const Home = lazy(() => import("pages/Home"));
+const Register = lazy(() => import("pages/Register"));
+const Login = lazy(() => import("pages/Login"));
+const Contacts = lazy(() => import("pages/Contacts"));
 
 export const App = () => { 
   return (
-    <Box as="main"
-      maxWidth="600px"
-      m="32px auto"
-      p={4}
-      borderRadius="8px"
-      boxShadow="0px 5px 10px 2px rgba(45, 90, 124, 0.2)"
-      backgroundColor="bgc"
-    >
+    <>
       <GlobalStyle />
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        theme={'colored'}
-        closeOnClick
-      />
-      <PageTitle>Phonebook</PageTitle>
-      <ContactForm />
-      <Section title="Contacts">
-        <Filter />
-        <ContactList />
-      </Section>
-    </Box>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />}></Route>
+          <Route path="contacts" element={<Contacts />}></Route>
+          <Route path="register" element={<Register />}></Route>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="*" element={<Navigate to="/" replace />}></Route>
+        </Route>
+      </Routes>
+      <GlobalStyle />
+    </>
   );
 };
