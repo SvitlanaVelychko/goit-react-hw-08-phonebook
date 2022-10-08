@@ -26,7 +26,7 @@ export const store = configureStore({
         filter: filterReducer,
         [contactsApi.reducerPath]: contactsApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => [
+    middleware: getDefaultMiddleware => [
         ...getDefaultMiddleware(
             {
                 serializableCheck: {

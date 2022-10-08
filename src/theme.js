@@ -1,9 +1,12 @@
-export const theme = {
+import { createTheme } from '@mui/material';
+
+export const theme = createTheme({
     colors: {
         black: '#000',
         white: '#fff',
+        blue: '#090eb0',
         text: '#006400',
-        bgc: '#c8ffa8',
+        bgcolor: '#c8ffa8',
         accent: '#ef0119',
         bgcButton: '#32CD32',
         bgcStat: '#FFFFE0',
@@ -34,4 +37,8 @@ export const theme = {
         normal: '4px',
         round: '50%',
     },
-};
+    transition: {
+    color: 'color 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+    all: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+    },
+});

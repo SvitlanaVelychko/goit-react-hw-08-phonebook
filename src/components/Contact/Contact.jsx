@@ -5,7 +5,7 @@ import Loader from "components/Loader";
 import { Button} from "./Contact.styled";
 
 
-const Contact = ({ id, name, phone }) => { 
+const Contact = ({ id, name, number }) => { 
     const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
 
     const handleDelete = async () => {
@@ -19,7 +19,7 @@ const Contact = ({ id, name, phone }) => {
 
     return (
         <>
-            <p>{name}: {phone}</p>
+            <p>{name}: {number}</p>
             <Button
                 type="button"
                 onClick={handleDelete}
@@ -33,7 +33,7 @@ const Contact = ({ id, name, phone }) => {
 Contact.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
 };
 
 export default Contact;

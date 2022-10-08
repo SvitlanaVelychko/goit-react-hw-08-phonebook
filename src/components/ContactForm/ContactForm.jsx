@@ -26,7 +26,7 @@ const ContactForm = () => {
                 contact.name.toLowerCase() === name.toLowerCase());
             const newContact = {
                 name,
-                phone: number,
+                number,
             };
 
             if (matcheContactName) {

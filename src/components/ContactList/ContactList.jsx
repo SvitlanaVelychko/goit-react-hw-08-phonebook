@@ -13,7 +13,7 @@ const ContactList = () => {
 
     const filteredContacts = contacts?.filter(({ name }) =>
         name.toLowerCase().includes(filter));
-
+    
     return (
         <Contacts>
             {isFetching && (
@@ -27,9 +27,9 @@ const ContactList = () => {
                 </Box>
             )}
             {filteredContacts?.length > 0 && !isFetching && (filteredContacts.sort((firstName, secondName) =>
-                firstName.name.localeCompare(secondName.name)).map(({ id, name, phone }) => (
+                firstName.name.localeCompare(secondName.name)).map(({ id, name, number }) => (
                     <ContactItem key={id}>
-                        <Contact id={id} name={name} phone={phone} />
+                        <Contact id={id} name={name} number={number} />
                     </ContactItem>
                 ))
             )}

@@ -1,10 +1,13 @@
+import { useAuth } from "hooks";
 import { Navigation, Link } from "./AppNavigation.styled";
 
 const AppNavigation = () => {
+    const { isLoggedIn } = useAuth();
+
     return (
         <Navigation>
-            <Link to="/">Home</Link>
-            <Link to="/contacts">Contacts</Link>
+            <Link to="/" end>Home</Link>
+            {isLoggedIn && <Link to="/contacts">Contacts</Link>}
         </Navigation>
     );
 };

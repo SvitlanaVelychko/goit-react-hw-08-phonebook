@@ -1,26 +1,50 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyle } from "./GlobalStyle";
 import Layout from './Layout';
+import Loader from './Loader';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import { useAuth } from 'hooks';
+import { fetchCurrentUser } from 'redux/auth/authOperations';
 
-const Home = lazy(() => import("pages/Home"));
-const Register = lazy(() => import("pages/Register"));
-const Login = lazy(() => import("pages/Login"));
+const HomePage = lazy(() => import("pages/HomePage"));
+const RegisterPage = lazy(() => import("pages/RegisterPage"));
+const LoginPage = lazy(() => import("pages/LoginPage"));
 const Contacts = lazy(() => import("pages/Contacts"));
 
 export const App = () => { 
+  const dispatch = useDispatch();
+  const { isFetchingCurrentUser } = useAuth();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
+      {isFetchingCurrentUser ? <Loader /> : (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/contacts" element={
+              <PrivateRoute redirectTo='/login' component={<Contacts />} />
+            }
+            />
+            <Route path="/register" element={
+              <PublicRoute redirectTo='/contacts' component={<RegisterPage />} />
+            }
+            />
+            <Route path="/login" element={
+              <PublicRoute redirectTo='/contacts' component={<LoginPage />} />
+            }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      )}
     </>
   );
 };
